@@ -1,0 +1,122 @@
+LN::LN(const std::string_view str)
+{
+	int start = 0;
+	if (str[0] == '-')
+	{
+		start++;
+		is_negative = true;
+	}
+	else
+	{
+		is_negative = false;
+	}
+	int len_of_str = str.size();
+	if (start != 0)
+	{
+		len_of_str--;
+	}
+	if (len_of_str == 1)
+	{
+		digits = new uint16_t[1];
+		if (str[start] == 'A')
+		{
+			digits[0] = 10;
+		}
+		else if (str[start] == 'B')
+		{
+			digits[0] = 11;
+		}
+		else if (str[start] == 'C')
+		{
+			digits[0] = 12;
+		}
+		else if (str[start] == 'D')
+		{
+			digits[0] = 13;
+		}
+		else if (str[start] == 'E')
+		{
+			digits[0] = 14;
+		}
+		else if (str[start] == 'F')
+		{
+			digits[0] = 15;
+		}
+		else
+		{
+			digits[0] = str[start] - '0';
+		}
+		size = 1;
+		return ;
+	}
+	size =  len_of_str / 4;
+	if (len_of_str % 4 != 0)
+	{
+		size++;
+	}
+	int c = 0;
+	digits = new uint16_t[size];
+	int cou = 0;
+	for (int i = len_of_str; i >= start; i--)
+	{
+		int pow = -1;
+		int curr_number = 0;
+		for (int j = 3; j >= 0; j--)
+		{
+			if (i <= 0)
+			{
+				break ;
+			}
+			i--;
+			int curr_num;
+			if (str[i] == 'A')
+			{
+				curr_num = 10;
+			}
+			else if (str[i] == 'B')
+			{
+				curr_num = 11;
+			}
+			else if (str[i] == 'C')
+			{
+				curr_num = 12;
+			}
+			else if (str[i] == 'D')
+			{
+				curr_num = 13;
+			}
+			else if (str[i] == 'E')
+			{
+				curr_num = 14;
+			}
+			else if (str[i] == 'F')
+			{
+				curr_num = 15;
+			}
+			else
+			{
+				curr_num = str[i] - '0';
+			}
+			int mnozhitel = 16;
+			for (int k = 0; k < pow; k++)
+			{
+				mnozhitel *= 16;
+			}
+			if (pow == -1)
+			{
+				mnozhitel = 1;
+			}
+			pow++;
+
+			curr_number += curr_num * mnozhitel;
+		}
+		cou++;
+		digits[c] = curr_number;
+		c++;
+		if (i <= 0)
+		{
+			return ;
+		}
+		i++;
+	}
+}
